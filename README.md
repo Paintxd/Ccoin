@@ -1,0 +1,2 @@
+# Ccoin
+Ccoin compasso project
