@@ -3,6 +3,7 @@ package com.paint.ccoin.itens.model;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,24 +18,27 @@ public class Estoque implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_item", referencedColumnName = "id")
 	private Item item;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_tipo_item", referencedColumnName = "id")
 	private TipoItem tipoItem;
 
+	private Integer valor;
+
 	private Integer quantiaReservado;
 	private Integer quantiaDisponivel;
-	
+
 	public Estoque() {
 	}
 
-	public Estoque(Item item, TipoItem tipo, Integer quantiaDisponivel) {
+	public Estoque(Item item, TipoItem tipo, Integer quantiaDisponivel, Integer valor) {
 		this.item = item;
 		this.tipoItem = tipo;
 		this.quantiaDisponivel = quantiaDisponivel;
+		this.valor = valor;
 		this.quantiaReservado = 0;
 	}
 
@@ -76,6 +80,23 @@ public class Estoque implements Serializable {
 
 	public void setQuantiaDisponivel(Integer quantiaDisponivel) {
 		this.quantiaDisponivel = quantiaDisponivel;
+	}
+
+	public Integer getValor() {
+		return valor;
+	}
+
+	public void setValor(Integer valor) {
+		this.valor = valor;
+	}
+	
+	public void reserva(Integer quantia) throws Exception {
+		if(this.quantiaDisponivel < quantia) {
+			throw new Exception();
+		} else {
+			this.quantiaDisponivel -= quantia;
+			this.quantiaReservado += quantia;
+		}
 	}
 
 }

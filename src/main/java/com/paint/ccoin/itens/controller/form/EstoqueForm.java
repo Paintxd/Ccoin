@@ -18,6 +18,8 @@ public class EstoqueForm {
 	private Long idTipoItem;
 	@NotNull
 	private Integer quantiaDisponivel;
+	@NotNull
+	private Integer valor;
 
 	public Long getIdItem() {
 		return idItem;
@@ -43,16 +45,24 @@ public class EstoqueForm {
 		this.quantiaDisponivel = quantiaDisponivel;
 	}
 
+	public Integer getValor() {
+		return valor;
+	}
+
+	public void setValor(Integer valor) {
+		this.valor = valor;
+	}
+
 	public Estoque converte(EstoqueRepository estoqueRepo, ItensRepository itemRepo, TipoItemRepository tipoRepo) {
 		Optional<Estoque> estoque = estoqueRepo.findByItemIdAndTipoItemId(idItem, idTipoItem);
-		
+
 		if (estoque.isPresent()) {
 			return null;
 		} else {
 			Item item = itemRepo.getOne(idItem);
 			TipoItem tipo = tipoRepo.getOne(idTipoItem);
-			
-			return new Estoque(item, tipo, quantiaDisponivel);
+
+			return new Estoque(item, tipo, quantiaDisponivel, valor);
 		}
 	}
 

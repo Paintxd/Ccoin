@@ -1,6 +1,4 @@
-package com.paint.ccoin.itens.model;
-
-import java.io.Serializable;
+package com.paint.ccoin.resgates.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,21 +7,23 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "tipos_itens")
-public class TipoItem implements Serializable {
-	private static final long serialVersionUID = 1L;
+@Table(name = "status_nomes")
+public class TiposStatus {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
+	
 	private String descricao;
 
-	public TipoItem() {
+	public TiposStatus() {
 	}
 
-	public TipoItem(String descricao) {
+	public TiposStatus(String descricao) {
 		this.descricao = descricao;
+	}
+	
+	public TiposStatus(Long id) {
+		this.id = id;
 	}
 
 	public Long getId() {
@@ -41,5 +41,7 @@ public class TipoItem implements Serializable {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-
+	
+	
+	
 }

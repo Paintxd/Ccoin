@@ -40,4 +40,15 @@ public class MailSenderService {
 		message.send();
 	}
 	
+	public void compraMail(String comprador, Double valor) throws EmailException {
+		Email message = con();
+		
+		message.setFrom("Ccoin@gmail.com");
+		message.addTo(comprador);
+		message.setSubject("Voce efetuou uma compra");
+		message.setMsg("Voce efetuou uma compra no valor de: " + valor + " visite nosso site para obter mais detalhes");
+		
+		message.send();
+	}
+	
 }
